@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sptan/core/services/firebase_auth.dart';
 import 'package:sptan/presentation/helper/colors.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
+import 'package:sptan/presentation/views/enter_password_view.dart';
 import 'package:sptan/presentation/views/set_password_view.dart';
 
 class SplashView extends StatefulWidget {
@@ -10,16 +13,16 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashScreenViewState extends State<SplashView> {
-  bool isLoggedIn = false;
-
   void initState() {
     super.initState();
+    User user = FirebaseAuthentication().getCurrentUser();
+    bool isFirstTime = user == null;
     Timer(
       Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) {
-            return SetPasswordView();
+            return isFirstTime ? SetPasswordView() : EnterPasswordView();
           },
         ),
       ),

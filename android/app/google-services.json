@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "243945668211",
+    "project_id": "sptan-f37a8",
+    "storage_bucket": "sptan-f37a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243945668211:android:165198400d39aadd6ab406",
+        "android_client_info": {
+          "package_name": "de.jewerlo.sptan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243945668211-i5egis50kddq22vbn3hbj64gdg4vmg32.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_i3W-N0OOCHlFkFkR7ve1sUjqwmb4-kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243945668211-i5egis50kddq22vbn3hbj64gdg4vmg32.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
