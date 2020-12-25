@@ -23,6 +23,7 @@ class Keys {
   static const String MessageContent = 'Content';
   static const String MessageType = 'Type';
   static const String MessageSentIN = 'SentIN';
+  static const String MessageFileName = 'File name';
 
 
 

@@ -16,12 +16,18 @@ import 'package:sptan/core/services/firestore_database.dart';
 import 'package:sptan/presentation/helper/colors.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
-import 'package:sptan/presentation/widgets/cache_images.dart';
+import 'package:sptan/presentation/widgets/cache_files_widget.dart';
 
 class ChatBodyWidget extends StatefulWidget {
   final String chatID;
+  final Function onPickFilesStart;
+  final Function onPickFilesEnd;
 
-  ChatBodyWidget(this.chatID);
+  ChatBodyWidget({
+    @required this.chatID,
+    @required this.onPickFilesStart,
+    @required this.onPickFilesEnd,
+  });
 
   @override
   _ChatBodyWidgetState createState() => _ChatBodyWidgetState();
@@ -66,6 +72,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                     itemBuilder: (context, int index) {
                       String uid = FirebaseAuthentication().getUserId();
                       MessageData messageData = MessageData(
+                        fileName: messages[index].data()[Keys.MessageFileName],
                         content: messages[index].data()[Keys.MessageContent],
                         type: messages[index].data()[Keys.MessageType],
                         sentIN: messages[index].data()[Keys.MessageSentIN],
@@ -87,17 +94,21 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                             backGroundColor:
                                 isFromMe ? CCRed : Colors.grey[400],
                             margin: EdgeInsets.only(
+                              left: 10,
+                              right: 10,
                               top: index == messages.length - 1 ? 20 : 0,
                               bottom: 20,
                             ),
                             child: Container(
                               constraints: BoxConstraints(
-                                maxWidth: size.width * 0.7,
+                                maxWidth: size.width * 0.6,
                               ),
                               child: messageData.type != Keys.TextMessage
                                   ? CacheFiles(
+                                      fileName: messageData.fileName,
                                       fileUrl: messageData.content,
                                       fileType: messageData.type,
+                                      chatId: widget.chatID,
                                     )
                                   : Text(
                                       messageData.content,
@@ -156,6 +167,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                     children: [
                                       InkWell(
                                         onTap: () async {
+                                          widget.onPickFilesStart();
                                           File file =
                                               await FilesPicker().pickImage();
                                           if (file != null)
@@ -163,6 +175,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                               _pickedFile = file;
                                               _messageType = Keys.ImageMessage;
                                             });
+                                          widget.onPickFilesEnd();
                                         },
                                         child: Row(
                                           children: [
@@ -189,6 +202,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                       ),
                                       InkWell(
                                         onTap: () async {
+                                          widget.onPickFilesStart();
                                           File file =
                                               await FilesPicker().pickPdf();
                                           if (file != null)
@@ -196,6 +210,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                               _pickedFile = file;
                                               _messageType = Keys.PDfMessage;
                                             });
+                                          widget.onPickFilesEnd();
                                         },
                                         child: Row(
                                           children: [

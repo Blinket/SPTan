@@ -6,12 +6,14 @@ class MessageData {
   final String content;
   final String type;
   final String sentIN;
+  final String fileName;
 
   MessageData({
     @required this.senderID,
     @required this.content,
     @required this.type,
     @required this.sentIN,
+    @required this.fileName,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class MessageData {
       Keys.MessageSenderId: senderID,
       Keys.MessageSentIN: sentIN,
       Keys.MessageType: type,
+      Keys.MessageFileName:fileName,
     };
   }
 }

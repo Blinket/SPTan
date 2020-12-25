@@ -66,18 +66,27 @@ class FirestoreDatabase extends ChangeNotifier {
   Future<EnterChatEnum> enterChat(String id) async {
     String uid = FirebaseAuthentication().getUserId();
     ChatData chatData = await FirestoreDatabase().getChatData(id);
-    if ((chatData.firstUserID == uid || chatData.secondUserID == uid) ||
-        chatData.secondUserID == null) {
-      if (chatData.secondUserID == null && chatData.firstUserID != uid)
-        await chatsCollection.doc(id).update(
-          {
-            Keys.ChatSecondUserID: uid,
-          },
-        );
-      if (chatData.duration == null)
-        return EnterChatEnum.setDuration;
-      else
-        return EnterChatEnum.goToChat;
+    if (chatData != null) {
+      bool validChat = DateTime.parse(chatData.createdIN).difference(
+            DateTime.now(),
+          ) >
+          Duration(days: -1);
+      print('=========> valid chat $validChat');
+      if (((chatData.firstUserID == uid || chatData.secondUserID == uid) ||
+              chatData.secondUserID == null) &&
+          validChat) {
+        if (chatData.secondUserID == null && chatData.firstUserID != uid)
+          await chatsCollection.doc(id).update(
+            {
+              Keys.ChatSecondUserID: uid,
+            },
+          );
+        if (chatData.duration == null)
+          return EnterChatEnum.setDuration;
+        else
+          return EnterChatEnum.goToChat;
+      } else
+        return EnterChatEnum.UnAvailableCode;
     } else
       return EnterChatEnum.UnAvailableCode;
   }
@@ -132,14 +141,11 @@ class FirestoreDatabase extends ChangeNotifier {
           .get();
       if (documentSnapshot.exists) {
         String createdIN = documentSnapshot.data()[Keys.ChatCreatedIN];
-        String startIn = documentSnapshot.data()[Keys.ChatStartIn];
-        int duration = documentSnapshot.data()[Keys.ChatDuration];
 
-        bool isExpired = DateTime.parse(createdIN).difference(DateTime.now()) >
+        bool isExpired = DateTime.parse(createdIN).difference(DateTime.now()) <
                 Duration(days: -1) ||
             documentSnapshot.data()[Keys.ChatDuration] == null ||
-            DateTime.parse(startIn).difference(DateTime.now()) >
-                Duration(minutes: -duration);
+            documentSnapshot.data()[Keys.ChatDuration] == 0;
         freeCode = isExpired;
       } else
         freeCode = true;
@@ -197,6 +203,8 @@ class FirestoreDatabase extends ChangeNotifier {
         .doc(length.toString())
         .set(
           MessageData(
+            fileName:
+                type != Keys.TextMessage ? content.path.split('/').last : '',
             senderID: uid,
             content: _finalContent,
             type: type,

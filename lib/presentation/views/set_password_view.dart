@@ -79,7 +79,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                           _showError = false;
                         });
                       },
-                      style: TSMuseoStyle,
+                      style: TSMuseoStyle.copyWith(height: 1.6),
                       obscureText: _hidePassword,
                       textInputAction: TextInputAction.next,
                       focusNode: _passwordNode,
@@ -108,9 +108,11 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                         counterStyle: TextStyle(height: 0),
                         errorStyle: TextStyle(height: 0),
                         hintText: 'Passwort Eingeben',
-                        hintStyle: TSMuseoStyle.copyWith(color: Colors.grey),
+                        hintStyle: TSMuseoStyle.copyWith(
+                          color: Colors.grey,
+                          height: 1.6,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: 14.5,
                           horizontal: 30,
                         ),
                         border: UIHelper.outlineInputBorder,
@@ -171,9 +173,11 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                         counterStyle: TextStyle(height: 0),
                         errorStyle: TextStyle(height: 0),
                         hintText: 'Kennwort bestätigen',
-                        hintStyle: TSMuseoStyle.copyWith(color: Colors.grey),
+                        hintStyle: TSMuseoStyle.copyWith(
+                          color: Colors.grey,
+                          height: 0,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: 0,
                           horizontal: 30,
                         ),
                         border: UIHelper.outlineInputBorder,
@@ -225,7 +229,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                           if (value)
                             Navigate.pushReplacement(
                               context,
-                              EnterPasswordView(),
+                              EnterPasswordView(null),
                             );
                           else
                             UIHelper.showDialogForME(
@@ -240,7 +244,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                       }
                     }
                   },
-                  text: 'Festelegen',
+                  text: 'Festlegen',
                 ),
               ),
             ],

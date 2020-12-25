@@ -11,11 +11,15 @@ import 'package:sptan/presentation/views/pdf_view.dart';
 
 class CacheFiles extends StatefulWidget {
   final String fileUrl;
+  final String fileName;
   final String fileType;
+  final String chatId;
 
   CacheFiles({
     @required this.fileUrl,
+    @required this.fileName,
     @required this.fileType,
+    @required this.chatId,
   });
 
   @override
@@ -34,6 +38,7 @@ class _CacheFilesState extends State<CacheFiles> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<File>(
+      key: Key(widget.fileUrl),
       future: getFileFuture,
       builder: (context, snapshot) {
         bool loading = snapshot.connectionState == ConnectionState.waiting;
@@ -49,7 +54,11 @@ class _CacheFilesState extends State<CacheFiles> {
                   : InkWell(
                       onTap: () => Navigate.push(
                         context,
-                        FullImageView(snapshot.data),
+                        FullImageView(
+                          image: snapshot.data,
+                          chatId: widget.chatId,
+                          imageName: widget.fileName,
+                        ),
                       ),
                       child: Image.file(
                         snapshot.data,
@@ -61,7 +70,7 @@ class _CacheFilesState extends State<CacheFiles> {
           );
         else if (widget.fileType == Keys.PDfMessage) {
           return Container(
-            height: 85,
+            height: 90,
             child: Center(
               child: loading
                   ? SpinKitDoubleBounce(
@@ -69,6 +78,7 @@ class _CacheFilesState extends State<CacheFiles> {
                       size: 25,
                     )
                   : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +94,11 @@ class _CacheFilesState extends State<CacheFiles> {
                             InkWell(
                               onTap: () => Navigate.push(
                                 context,
-                                PdfViewierView(snapshot.data),
+                                PdfViewierView(
+                                  file: snapshot.data,
+                                  fileName: widget.fileName,
+                                  chatId: widget.chatId,
+                                ),
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
@@ -117,12 +131,16 @@ class _CacheFilesState extends State<CacheFiles> {
                             ),
                           ],
                         ),
-                        Text(
-                          snapshot.data.path.split('/').last,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TSMuseoStyle.copyWith(color: Colors.white),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            widget.fileName ??
+                                snapshot.data.path.split('/').last,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            style: TSMuseoStyle.copyWith(color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
