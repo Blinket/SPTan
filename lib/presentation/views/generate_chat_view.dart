@@ -139,7 +139,7 @@ class _GenerateChatViewState extends State<GenerateChatView>
                                     _code = value;
                                   });
                                 },
-                                style: TSMuseoStyle.copyWith(height: 1.6),
+                                style: TSMuseoStyle.copyWith(height: 1.5),
                                 keyboardType: TextInputType.number,
                                 textInputAction: TextInputAction.done,
                                 validator: (value) => value.isEmpty ? '' : null,
@@ -151,7 +151,7 @@ class _GenerateChatViewState extends State<GenerateChatView>
                                   hintText: 'TAN Eingeben',
                                   hintStyle: TSMuseoStyle.copyWith(
                                     color: Colors.grey,
-                                    height: 1.6,
+                                    height: 1,
                                   ),
                                   contentPadding: EdgeInsets.symmetric(
                                     horizontal: 30,
@@ -246,7 +246,7 @@ class _GenerateChatViewState extends State<GenerateChatView>
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  'Der TAN wurde in die Zwischenablage kopiert!',
+                                                  'Die TAN wurde in die Zwischenablage kopiert!',
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   maxLines: 3,
@@ -338,7 +338,7 @@ class _GenerateChatViewState extends State<GenerateChatView>
                               });
                             },
                             child: Text(
-                              'TAN auf der Tastatur',
+                              'TAN manuell Eingeben',
                               style: TSMuseoStyle.copyWith(
                                 color: CCRed,
                                 fontWeight: FontWeight.w600,

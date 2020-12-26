@@ -108,7 +108,7 @@ class _EnterPasswordViewState extends State<EnterPasswordView> {
                                 _showError = false;
                               });
                             },
-                            style: TSMuseoStyle.copyWith(height: 1.6),
+                            style: TSMuseoStyle.copyWith(height: 1.5),
                             textInputAction: TextInputAction.done,
                             validator: (value) => value.isEmpty ? '' : null,
                             obscureText: _hidePassword,
@@ -131,10 +131,10 @@ class _EnterPasswordViewState extends State<EnterPasswordView> {
                               counterText: '',
                               counterStyle: TextStyle(height: 0),
                               errorStyle: TextStyle(height: 0),
-                              hintText: 'Kennwort bestätigen',
+                              hintText: 'Passwort Eingeben',
                               hintStyle: TSMuseoStyle.copyWith(
                                 color: Colors.grey,
-                                height: 1.6,
+                                height: 1,
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: 30,
@@ -198,7 +198,7 @@ class _EnterPasswordViewState extends State<EnterPasswordView> {
                             }
                           }
                         },
-                        text: 'Eingeben',
+                        text: 'Bestätigen',
                       ),
                     ),
                   ],

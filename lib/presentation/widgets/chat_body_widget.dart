@@ -16,7 +16,7 @@ import 'package:sptan/presentation/helper/navigate_functions.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
 import 'package:sptan/presentation/views/full_image_view.dart';
-import 'package:sptan/presentation/widgets/cache_files_widget.dart';
+import 'package:sptan/presentation/widgets/pdf_message_widget.dart';
 import 'package:sptan/presentation/widgets/send_message_field_widget.dart';
 
 class ChatBodyWidget extends StatefulWidget {
@@ -128,7 +128,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                       ),
                                   )
                                   : messageData.type == Keys.PDfMessage
-                                      ? CacheFiles(
+                                      ? PdfMessage(
                                           fileName: messageData.fileName,
                                           fileUrl: messageData.content,
                                           chatId: widget.chatID,

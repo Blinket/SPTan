@@ -3,12 +3,12 @@ import 'package:sptan/presentation/helper/navigate_functions.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/views/pdf_view.dart';
 
-class CacheFiles extends StatelessWidget {
+class PdfMessage extends StatelessWidget {
   final String fileUrl;
   final String fileName;
   final String chatId;
 
-  CacheFiles({
+  PdfMessage({
     @required this.fileUrl,
     @required this.fileName,
     @required this.chatId,
@@ -60,7 +60,7 @@ class CacheFiles extends StatelessWidget {
                         horizontal: 10,
                       ),
                       child: Text(
-                        'öffnen',
+                        'Öffnen',
                         maxLines: 1,
                         textAlign: TextAlign.center,
                         style: TSMuseoStyle.copyWith(

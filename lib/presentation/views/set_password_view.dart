@@ -79,7 +79,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                           _showError = false;
                         });
                       },
-                      style: TSMuseoStyle.copyWith(height: 1.6),
+                      style: TSMuseoStyle.copyWith(height: 1.5),
                       obscureText: _hidePassword,
                       textInputAction: TextInputAction.next,
                       focusNode: _passwordNode,
@@ -110,7 +110,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                         hintText: 'Passwort Eingeben',
                         hintStyle: TSMuseoStyle.copyWith(
                           color: Colors.grey,
-                          height: 1.6,
+                          height: 1,
                         ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 30,
@@ -148,7 +148,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                           _showError = false;
                         });
                       },
-                      style: TSMuseoStyle,
+                      style: TSMuseoStyle.copyWith(height: 1.5),
                       focusNode: _confirmPasswordNode,
                       textInputAction: TextInputAction.done,
                       validator: (value) => value.isEmpty ? '' : null,
@@ -175,7 +175,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                         hintText: 'Kennwort bestätigen',
                         hintStyle: TSMuseoStyle.copyWith(
                           color: Colors.grey,
-                          height: 0,
+                          height: 1,
                         ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 30,

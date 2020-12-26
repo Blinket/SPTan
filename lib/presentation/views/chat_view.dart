@@ -66,17 +66,16 @@ class _ChatViewState extends State<ChatView> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     startTimer(context);
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
     _timer.cancel();
+    super.dispose();
   }
 
   @override
