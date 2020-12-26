@@ -38,9 +38,9 @@ dependencies:
   flutter_chat_bubble: ^1.0.2
   device_info: ^1.0.0
   file_picker: ^2.1.4
-  flutter_cache_manager: ^2.1.0
   native_pdf_view: ^3.9.0
   share: ^0.6.5+4
+  cached_network_image: ^2.5.0
 
 dev_dependencies:
   flutter_test:

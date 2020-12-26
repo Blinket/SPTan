@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
 import 'package:sptan/presentation/helper/colors.dart';
 import 'package:sptan/presentation/helper/navigate_functions.dart';
@@ -9,13 +12,11 @@ import 'package:sptan/presentation/views/chat_view.dart';
 import 'enter_password_view.dart';
 
 class FullImageView extends StatefulWidget {
-  final File image;
-  final String imageName;
+  final String url;
   final String chatId;
 
   FullImageView({
-    @required this.image,
-    @required this.imageName,
+    @required this.url,
     @required this.chatId,
   });
 
@@ -48,8 +49,6 @@ class _FullImageViewState extends State<FullImageView>
 
   bool _requestPassword = false;
 
-  // bool _shareFile = false;
-
   @override
   Widget build(BuildContext context) {
     if (_requestPassword)
@@ -60,7 +59,7 @@ class _FullImageViewState extends State<FullImageView>
       });
     else
       return WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           Navigate.pushReplacement(
             context,
             ChatView(widget.chatId),
@@ -101,9 +100,10 @@ class _FullImageViewState extends State<FullImageView>
                       ),
                       IconButton(
                         onPressed: () async {
+                          File file = await DefaultCacheManager()
+                              .getSingleFile(widget.url);
                           await Share.shareFiles(
-                            [widget.image.path],
-                            text: widget.imageName,
+                            [file.path],
                           );
                         },
                         icon: Icon(
@@ -116,9 +116,18 @@ class _FullImageViewState extends State<FullImageView>
                 ),
                 Expanded(
                   child: Center(
-                    child: Image.file(
-                      widget.image,
-                      width: MediaQuery.of(context).size.width - 5,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.url,
+                      placeholder: (context, url) => Center(
+                        child: SpinKitDoubleBounce(
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.error,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
