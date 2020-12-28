@@ -231,6 +231,7 @@ class _ChatViewState extends State<ChatView> with WidgetsBindingObserver {
                     });
                   },
                 ),
+                // Container(height: 16,color: Colors.grey[200],),
               ],
             ),
           ),

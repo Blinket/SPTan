@@ -48,17 +48,18 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    if (_toPickFiles)
-     return  Container(
+    if (_toPickFiles) {
+      return  Container(
         width: size.width,
         decoration: BoxDecoration(
-          color: Colors.white,
+                    color: Colors.white,
+
           boxShadow: [
-            BoxShadow(
-              blurRadius: 2,
-              color: Colors.grey[300],
-              offset: Offset(3, 0),
-            )
+          BoxShadow(
+                        blurRadius: 2,
+                        color: Colors.grey[400],
+                        offset: Offset(0, -3),
+                      )
           ],
         ),
         child: Padding(
@@ -241,10 +242,19 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
           ),
         ),
       );
-    else
+    } else
       return Container(
-        width: size.width,
-        color: Colors.grey[200],
+           width: size.width,
+  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 2,
+                        color: Colors.grey[400],
+                        offset: Offset(0, -3),
+                      )
+                    ],
+                  ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Row(
@@ -271,7 +281,7 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
                       errorStyle: TextStyle(height: 0),
                       hintText: 'Nachricht eingeben',
                       hintStyle: TSMuseoStyle.copyWith(
-                        color: Colors.grey[800],
+                        color: Colors.grey[900],
                       ),
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,

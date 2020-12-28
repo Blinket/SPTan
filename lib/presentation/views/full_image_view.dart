@@ -67,14 +67,23 @@ class _FullImageViewState extends State<FullImageView>
           return false;
         },
         child: Scaffold(
-          backgroundColor: Colors.black,
+           backgroundColor: Colors.white,
           body: SafeArea(
             child: Column(
               children: [
                 Container(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 2,
+                            color: Colors.grey[300],
+                            offset: Offset(0, 3),
+                          )
+                        ],
+                      ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

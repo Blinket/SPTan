@@ -172,7 +172,7 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                         counterText: '',
                         counterStyle: TextStyle(height: 0),
                         errorStyle: TextStyle(height: 0),
-                        hintText: 'Kennwort bestätigen',
+                        hintText: 'Passwort Bestätigen',
                         hintStyle: TSMuseoStyle.copyWith(
                           color: Colors.grey,
                           height: 1,
