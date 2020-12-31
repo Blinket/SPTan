@@ -22,7 +22,7 @@ class _SplashScreenViewState extends State<SplashView> {
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) {
-            return isFirstTime ? SetPasswordView() : EnterPasswordView(null);
+            return isFirstTime ? SetPasswordView() : EnterPasswordView();
           },
         ),
       ),

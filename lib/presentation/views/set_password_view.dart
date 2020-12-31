@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sptan/core/services/firestore_database.dart';
 import 'package:sptan/presentation/helper/colors.dart';
-import 'package:sptan/presentation/helper/navigate_functions.dart';
+import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
 import 'package:sptan/presentation/views/enter_password_view.dart';
@@ -227,9 +227,9 @@ class _SetPasswordViewState extends State<SetPasswordView> {
                             .setUserData(_password)
                             .then((value) {
                           if (value)
-                            Navigate.pushReplacement(
+                            RouterHelper.pushReplacement(
                               context,
-                              EnterPasswordView(null),
+                              EnterPasswordView(),
                             );
                           else
                             UIHelper.showDialogForME(

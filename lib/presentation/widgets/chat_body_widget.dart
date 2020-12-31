@@ -12,7 +12,7 @@ import 'package:sptan/core/models/massage_data.dart';
 import 'package:sptan/core/services/firebase_auth.dart';
 import 'package:sptan/core/services/firestore_database.dart';
 import 'package:sptan/presentation/helper/colors.dart';
-import 'package:sptan/presentation/helper/navigate_functions.dart';
+import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
 import 'package:sptan/presentation/views/full_image_view.dart';
@@ -21,14 +21,8 @@ import 'package:sptan/presentation/widgets/send_message_field_widget.dart';
 
 class ChatBodyWidget extends StatefulWidget {
   final String chatID;
-  final Function onPickFilesStart;
-  final Function onPickFilesEnd;
 
-  ChatBodyWidget({
-    @required this.chatID,
-    @required this.onPickFilesStart,
-    @required this.onPickFilesEnd,
-  });
+  ChatBodyWidget({@required this.chatID});
 
   @override
   _ChatBodyWidgetState createState() => _ChatBodyWidgetState();
@@ -66,11 +60,13 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                       itemBuilder: (context, int index) {
                         String uid = FirebaseAuthentication().getUserId();
                         MessageData messageData = MessageData(
-                          fileName: messages[index].data()[Keys.MessageFileName],
+                          fileName:
+                              messages[index].data()[Keys.MessageFileName],
                           content: messages[index].data()[Keys.MessageContent],
                           type: messages[index].data()[Keys.MessageType],
                           sentIN: messages[index].data()[Keys.MessageSentIN],
-                          senderID: messages[index].data()[Keys.MessageSenderId],
+                          senderID:
+                              messages[index].data()[Keys.MessageSenderId],
                         );
                         bool isFromMe = messageData.senderID == uid;
                         // print('========> index $index message is ${messageData.fileName}');
@@ -100,8 +96,8 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                 ),
                                 child: messageData.type == Keys.ImageMessage
                                     ? Center(
-                                      child: InkWell(
-                                          onTap: () => Navigate.push(
+                                        child: InkWell(
+                                          onTap: () => RouterHelper.pushReplacement(
                                             context,
                                             FullImageView(
                                               url: messageData.content,
@@ -120,14 +116,14 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                                 ),
                                               ),
                                             ),
-                                            errorWidget: (context, url, error) =>
-                                                Icon(
+                                            errorWidget:
+                                                (context, url, error) => Icon(
                                               Icons.error,
                                               color: Colors.white,
                                             ),
                                           ),
                                         ),
-                                    )
+                                      )
                                     : messageData.type == Keys.PDfMessage
                                         ? PdfMessage(
                                             fileName: messageData.fileName,
@@ -151,8 +147,6 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                   SendMessageFieldWidget(
                     chatID: widget.chatID,
                     length: messages.length,
-                    onPickFilesStart: widget.onPickFilesStart,
-                    onPickFilesEnd: widget.onPickFilesStart,
                   ),
                 ],
               );

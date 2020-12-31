@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sptan/presentation/helper/navigate_functions.dart';
+import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/views/pdf_view.dart';
 
@@ -34,7 +34,7 @@ class PdfMessage extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Navigate.push(
+                  onTap: () => RouterHelper.pushReplacement(
                     context,
                     PdfViewierView(
                       fileUrl: fileUrl,

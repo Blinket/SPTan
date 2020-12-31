@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sptan/core/services/firestore_database.dart';
-import 'package:sptan/presentation/helper/navigate_functions.dart';
+import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
 import 'package:sptan/presentation/views/chat_view.dart';
@@ -123,7 +123,7 @@ class _ChatDurationDialogState extends State<ChatDurationDialog> {
                       id: widget.chatID,
                       duration: durations[selectedIndex] * 60,
                     );
-                    Navigate.pushReplacement(
+                    RouterHelper.pushReplacement(
                       context,
                       ChatView(widget.chatID),
                     );
