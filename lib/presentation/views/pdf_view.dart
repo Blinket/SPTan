@@ -5,12 +5,9 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:share/share.dart';
 import 'package:sptan/presentation/helper/colors.dart';
-import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/helper/ui_helper.dart';
-
-import 'chat_view.dart';
-import 'enter_password_view.dart';
+import 'package:sptan/presentation/views/scure_gate_view.dart';
 
 class PdfViewierView extends StatefulWidget {
   final String fileUrl;
@@ -25,8 +22,7 @@ class PdfViewierView extends StatefulWidget {
   _PdfViewierViewState createState() => _PdfViewierViewState();
 }
 
-class _PdfViewierViewState extends State<PdfViewierView>
-    with WidgetsBindingObserver {
+class _PdfViewierViewState extends State<PdfViewierView> {
   Future<File> getFileFuture;
 
   @override
@@ -36,38 +32,9 @@ class _PdfViewierViewState extends State<PdfViewierView>
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (_) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: EnterPasswordView(justPop: true),
-          );
-        },
-      );
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        RouterHelper.pushReplacement(
-          context,
-          ChatView(widget.chatId),
-        );
-        return false;
-      },
-      child: Scaffold(
+    return SecureGateView(
+      Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: FutureBuilder<File>(
@@ -105,10 +72,7 @@ class _PdfViewierViewState extends State<PdfViewierView>
                             Icons.arrow_back_ios_outlined,
                             color: CCRed,
                           ),
-                          onPressed: () => RouterHelper.pushReplacement(
-                            context,
-                            ChatView(widget.chatId),
-                          ),
+                          onPressed: () => Navigator.pop(context),
                         ),
                         Hero(
                           tag: 'logo',
@@ -138,10 +102,13 @@ class _PdfViewierViewState extends State<PdfViewierView>
                   Expanded(
                     child: _loading
                         ? Center(child: UIHelper.SpinLoading)
-                        : PdfView(
-                            scrollDirection: Axis.vertical,
-                            controller: pdfController,
-                          ),
+                        : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PdfView(
+                              scrollDirection: Axis.vertical,
+                              controller: pdfController,
+                            ),
+                        ),
                   ),
                 ],
               );

@@ -34,7 +34,7 @@ class PdfMessage extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () => RouterHelper.pushReplacement(
+                  onTap: () => RouterHelper.push(
                     context,
                     PdfViewierView(
                       fileUrl: fileUrl,

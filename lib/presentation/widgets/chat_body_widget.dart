@@ -97,7 +97,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                                 child: messageData.type == Keys.ImageMessage
                                     ? Center(
                                         child: InkWell(
-                                          onTap: () => RouterHelper.pushReplacement(
+                                          onTap: () => RouterHelper.push(
                                             context,
                                             FullImageView(
                                               url: messageData.content,

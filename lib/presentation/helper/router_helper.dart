@@ -4,14 +4,9 @@ class RouterHelper {
   static push(BuildContext context, Widget navigateTo) {
     return Navigator.push(
       context,
-       PageRouteBuilder(
-    pageBuilder: (_,__,___) => navigateTo,
-    transitionDuration: Duration(milliseconds: 0),
-    reverseTransitionDuration: Duration(milliseconds:0),
-  ),
-      // MaterialPageRoute(builder: (context) {
-      //   return navigateTo;
-      // }),
+      MaterialPageRoute(builder: (context) {
+        return navigateTo;
+      }),
     );
   }
 

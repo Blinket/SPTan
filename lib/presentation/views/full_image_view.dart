@@ -6,12 +6,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
 import 'package:sptan/presentation/helper/colors.dart';
-import 'package:sptan/presentation/helper/router_helper.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
-import 'package:sptan/presentation/views/chat_view.dart';
-import 'enter_password_view.dart';
+import 'package:sptan/presentation/views/scure_gate_view.dart';
 
-class FullImageView extends StatefulWidget {
+class FullImageView extends StatelessWidget {
   final String url;
   final String chatId;
 
@@ -21,50 +19,9 @@ class FullImageView extends StatefulWidget {
   });
 
   @override
-  _FullImageViewState createState() => _FullImageViewState();
-}
-
-class _FullImageViewState extends State<FullImageView>
-    with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (_) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: EnterPasswordView(justPop: true),
-          );
-        },
-      );
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        RouterHelper.pushReplacement(
-          context,
-          ChatView(widget.chatId),
-        );
-        return false;
-      },
-      child: Scaffold(
+    return SecureGateView(
+      Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Column(
@@ -90,10 +47,7 @@ class _FullImageViewState extends State<FullImageView>
                         Icons.arrow_back_ios_outlined,
                         color: CCRed,
                       ),
-                      onPressed: () => RouterHelper.pushReplacement(
-                        context,
-                        ChatView(widget.chatId),
-                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
                     Hero(
                       tag: 'logo',
@@ -107,8 +61,8 @@ class _FullImageViewState extends State<FullImageView>
                     ),
                     IconButton(
                       onPressed: () async {
-                        File file = await DefaultCacheManager()
-                            .getSingleFile(widget.url);
+                        File file =
+                            await DefaultCacheManager().getSingleFile(url);
                         await Share.shareFiles(
                           [file.path],
                         );
@@ -124,7 +78,7 @@ class _FullImageViewState extends State<FullImageView>
               Expanded(
                 child: Center(
                   child: CachedNetworkImage(
-                    imageUrl: widget.url,
+                    imageUrl: url,
                     placeholder: (context, url) => Center(
                       child: SpinKitDoubleBounce(
                         color: Colors.white,

@@ -7,6 +7,8 @@ import 'package:sptan/presentation/helper/text_styles.dart';
 import 'package:sptan/presentation/views/enter_password_view.dart';
 import 'package:sptan/presentation/views/set_password_view.dart';
 
+import '../helper/router_helper.dart';
+
 class SplashView extends StatefulWidget {
   @override
   _SplashScreenViewState createState() => _SplashScreenViewState();
@@ -19,12 +21,9 @@ class _SplashScreenViewState extends State<SplashView> {
     bool isFirstTime = user == null;
     Timer(
       Duration(seconds: 3),
-      () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) {
-            return isFirstTime ? SetPasswordView() : EnterPasswordView();
-          },
-        ),
+      () => RouterHelper.push(
+        context,
+        isFirstTime ? SetPasswordView() : EnterPasswordView(),
       ),
     );
   }

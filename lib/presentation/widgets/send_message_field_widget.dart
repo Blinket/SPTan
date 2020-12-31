@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
+import 'package:secure_application/secure_application_controller.dart';
+import 'package:secure_application/secure_application_provider.dart';
 import 'package:sptan/core/helper/keys.dart';
 import 'package:sptan/core/services/file_picker.dart';
 import 'package:sptan/core/services/firestore_database.dart';
 import 'package:sptan/presentation/helper/colors.dart';
-import 'package:sptan/presentation/helper/shared.dart';
 import 'package:sptan/presentation/helper/text_styles.dart';
 
 class SendMessageFieldWidget extends StatefulWidget {
@@ -43,7 +43,8 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Shared shared = Provider.of<Shared>(context);
+    SecureApplicationController secureApp =
+        SecureApplicationProvider.of(context);
     if (_toPickFiles) {
       return Container(
         width: size.width,
@@ -86,14 +87,14 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              shared.isPickFile = true;
+                              if (secureApp.secured) secureApp.pause();
                               File file = await FilesPicker().pickImage();
                               if (file != null)
                                 setState(() {
                                   _pickedFile = file;
                                   _messageType = Keys.ImageMessage;
                                 });
-                              shared.isPickFile = false;
+                              if (secureApp.paused) secureApp.unpause();
                             },
                             child: Row(
                               children: [
@@ -120,14 +121,14 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
                           ),
                           InkWell(
                             onTap: () async {
-                              shared.isPickFile = true;
+                              if (secureApp.secured) secureApp.pause();
                               File file = await FilesPicker().pickPdf();
                               if (file != null)
                                 setState(() {
                                   _pickedFile = file;
                                   _messageType = Keys.PDfMessage;
                                 });
-                              shared.isPickFile = false;
+                              if (secureApp.paused) secureApp.unpause();
                             },
                             child: Row(
                               children: [

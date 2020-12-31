@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:secure_application/secure_application.dart';
+import 'package:secure_application/secure_application_provider.dart';
 import 'package:sptan/core/models/user_data.dart';
 import 'package:sptan/core/services/firestore_database.dart';
 import 'package:sptan/presentation/helper/colors.dart';
@@ -9,14 +11,6 @@ import 'package:sptan/presentation/views/generate_chat_view.dart';
 import 'package:sptan/presentation/widgets/button_widget.dart';
 
 class EnterPasswordView extends StatefulWidget {
-  final bool justPop;
-  final Function doAfterCorrectPass;
-
-  EnterPasswordView({
-    this.justPop = false,
-    this.doAfterCorrectPass,
-  });
-
   @override
   _EnterPasswordViewState createState() => _EnterPasswordViewState();
 }
@@ -186,16 +180,13 @@ class _EnterPasswordViewState extends State<EnterPasswordView> {
                             UserData userData =
                                 await FirestoreDatabase().getCurrentUserData();
                             if (userData.password == _password) {
-                              if (widget.doAfterCorrectPass != null)
-                                widget.doAfterCorrectPass();
-                              else if (widget.justPop) {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              } else
-                                RouterHelper.pushReplacement(
-                                  context,
-                                  GenerateChatView(),
-                                );
+                              SecureApplicationController secureApp =
+                                  SecureApplicationProvider.of(context);
+                              if (!secureApp.secured) secureApp.secure();
+                              RouterHelper.pushReplacement(
+                                context,
+                                GenerateChatView(),
+                              );
                             } else {
                               setState(() {
                                 _showError = true;
