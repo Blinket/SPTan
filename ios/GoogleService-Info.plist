@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>243945668211-m5ridrc7lkod6q404atkqialml0ijsb4.apps.googleusercontent.com</string>
+	<string>243945668211-vkcr0ehj6dunm2j3akr34pc7lsu5792p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.243945668211-m5ridrc7lkod6q404atkqialml0ijsb4</string>
+	<string>com.googleusercontent.apps.243945668211-vkcr0ehj6dunm2j3akr34pc7lsu5792p</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAn3YSkSxAkzVZW43f-TxRVDQIJsMlKeyk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>de.jewerlo.sptan</string>
+	<string>de.jewerlo.sptan.ios</string>
 	<key>PROJECT_ID</key>
 	<string>sptan-f37a8</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:243945668211:ios:518edd4eab8c830b6ab406</string>
+	<string>1:243945668211:ios:fe1dbed3ab93f4356ab406</string>
 </dict>
 </plist>
